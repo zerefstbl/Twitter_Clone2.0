@@ -2,22 +2,102 @@
 
 {% load static %}
 {% block content %}
-<div class="col">
-
+<div class="container">
+<div class="row">
     <div class="col" id="side-bar">
         <div class="icon">
             <img id="image" src="{% static 'img/twitter-brands.svg' %}" alt="">
-            <img src="{% static 'img/home-icon.png' %}" alt="">
+            <div class="home"><a href="/"></a>
+                <div class="vaivai">
+            <a href="/"><img id="imagem" src="{% static 'img/new-home.png' %}" alt=""></a>
+            <a class="text" href="/">
+            Home
+            </a>
+        </div>
+    </a></div>
+    
+        <div class="notification">
+            <div class="not">
+
+            <a href="/"><img id="imagem" src="{% static 'img/notification.png' %}" alt=""></a>
+            <a class="text-normal" href="/">
+            Notificações
+            </a>
+        </div>
+        </div>
+        <div class="notification">
+            <div class="not">
+
+            <a href="/"><img id="imagem" src="{% static 'img/message.png' %}" alt=""></a>
+            <a class="text-normal" href="/">
+            Messages
+            </a>
+        </div>
+        </div>
+        <div class="notification">
+            <div class="not">
+
+            <img id="imagem" src="{% static 'img/user-32.png' %}" alt="">
+            <a class="text-normal" href="/">
+            Profile
+            </a>
+        </div>
+        </div>
+        <button id="butn" style="margin-right: 0px;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            Tweet
+          </button>
+          <div class="new" id="lolo">
+            <a href="/"><div id="lala" class="tesk">
+
+            <img id="imagem" style="margin-top: 16px;" src="{% static 'img/feather-32.png' %}" alt="">
+            <a class="text-normal" href="/">
+            Profile
+            </a>
+        </div></a>
         </div>
     </div>
+</div>
+    <div class="col-mt-5">
+        <div class="tudo">
+        <div class="top">
+            <p class="neve">Home</p>
+            <div class="pensando">
+            <img class="profile-picture" src="{% static 'img/user-32.png' %}" alt="">
+            <form action="">
+            <input id="vaimds" class="whats" placeholder="O que esta pensando?"></input>
+            <div>
+            <button class="btnt">Tweet</button>
+        </div>
+        </form>
+        </div>    
+        </div>
+            </div>
 
-    <div class="col">
 
+                <div class="esqueleto">
+                        <div class="cima">
+                            <br>
+                            <img style="width: 30px; height: 30px; margin-left: 10px" src="{% static 'img/user-32.png' %}" alt="">
+                            <a class="user" href="/">dudududu</a>
+                            <p class="name">@dudududu</p>
+                            <span class="biooo">lalalalalalallalalala</span>
+                        </div>
+                        <img id="img-post" src="{% static 'img/miguel.png' %}" alt="">
+                    
+                    <div class="likes">
+                        <img style="width: 18px; margin-left: 10px; margin-top: 15px;" src="{% static 'img/liked.png' %}" alt="">
+                        <br>
+                    </div>
+ 
+
+
+        
     </div>
 
     <div class="col">
 
     </div>
+
 
 </div>
 {% endblock content %}

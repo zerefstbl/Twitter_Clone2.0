@@ -5,29 +5,339 @@
 }
 
 #cont{
-    display: block;
     background: black;
 }
 
-#image{
-    margin-top: 15px;
-    width: 27px;
+.icon{
+    color: white;
+    text-align: left;
+    display: inline-block;
+    margin-left: -10px;
+
+    
 }
 
 #side-bar {
-    margin-left: 40px;
+    margin-left: -70px;
     max-width: 280px;
-    height: 580px;
+    position: fixed;
+    height: 630px;
     background: black;
     border-right: 1px solid rgb(133, 131, 131);
 }
+#image{
+    display: flex;
+    margin-top: 15px;
+    width: 27px;
+    margin-left: 10px;
+}
 
-@media (max-width: 1000px) {
-    #oi {
-        max-width: 20px;
-        margin-right: 10px;
+#imagem{
+    max-width: 23px;
+    margin-top: 30px;
+    display: inline-block;
+    width: 100%;
+}
+#perfil{
+    max-width: 40px;
+    margin-top: 200px;
+    display: inline-block;
+    width: 100%;
+}
+        
 
-    }
 
+.text{
+    margin-top: 31px;
+    margin-left: 30px;
+    font-size: 20px;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    position: fixed;
+}
+
+    
+
+.home{
+    margin-left: 0px;
+    width: 140px;
+    max-width: 100%;
+    border-radius: 30px;
+    height: 50px;
+    margin-top: 30px;
+    display: flex;
+    transition: all 0.4s;
+}
+
+
+
+.vaivai, .not, .tesk{
+    margin-top: -20px;
+    margin-left: 10px;
+}
+
+#lolo{
+    margin-top: 40px;
+}
+
+.porra{
+    margin-top: -10px;
+}
+
+#lala{
+    margin-top: -20px;
+}
+
+.notification, .new{
+    margin-left: 0px;
+    width: 200px;
+    border-radius: 30px;
+    margin-top: 10px;
+    display: flex;
+    transition: all 0.4s;
+    height: 50px;
+    
+}
+
+.pictu{
+    margin-left: 0px;
+    width: 200px;
+    position: relative;
+    border-radius: 30px;
+    margin-top: 0px;
+    display: flex;
+    transition: all 0.4s;
+    height: 50px;
+    
+}
+
+#test{
+    margin-top: 190px;
+}
+
+
+
+.pictu:hover{
+    background: #111;
+    text-decoration: none;
+    cursor: pointer;
+    color: white;
+}
+
+
+
+.text-normal{
+    text-decoration: none;
+    color: white;
+    margin-top: 30px;
+    margin-left: 30px;
+    font-size: 20px;
+    text-decoration: none;
+    position: fixed;
+}
+
+.home:hover, .notification:hover, .new:hover{
+    background: #111;
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+}
+.text:hover, .text-normal:hover{
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+.btnt{
+    color: white;
+    background-color: rgb(29, 155, 240);
+    border: 0px;
+    width: 80px;
+    height: 40px;
+    border-radius: 30px;
+    margin-top: 40px;
+    margin-left: 150%;
+}
+
+
+#butn{
+    margin-top: 20px;
+    height: 54px;
+    width: 230px;
+    background-color: rgb(29, 155, 240);
+    border-radius: 30px;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+
+.foto{
+    margin-left: 15px;
+    margin-top: -20px;
+}
+
+
+#butn:hover{
+    background-color: rgb(9, 131, 212);
 
 }
+
+.new{
+    display: none;
+}
+
+.tudo{
+    background-color: black;
+    max-width: 600px;
+    margin-left: 195px;
+    height: 200px;
+    border: 1px solid #111;
+
+}
+
+.top{
+    max-width: 600px;
+    width: 599px;
+    height: 80px;
+    margin: 0px;
+    position: relative;
+    margin-top: 10px;
+    margin-left: 20px;
+}
+p{
+    color: white;
+    width: 100px;
+    margin-left: 20px;
+    margin-top: 1px;
+    margin-top: 100px;
+    font-size: 21px;
+    font-weight: bold;
+}
+
+
+.profile-picture{
+    margin-left: 20px;
+    margin-top: 10px;
+    display: flex;
+    max-width: 40px;
+    height: 40px;
+}
+
+#vaimds{
+    margin-left: 10px;
+    font-size: 20px;
+    border: 0px;
+    color: #666;
+    font-weight: normal;
+    display: inline-block;
+    width: 270px;
+    margin-top: 19px;
+    
+}
+
+input{
+    margin-left: 20px;
+    background-color: black;
+    border: 0px solid black;
+    color: white;
+}
+
+input::placeholder{
+    border: 0px;
+    color: #666;
+}
+
+.pensando{
+    display: flex;
+}
+
+.conteudo{
+    max-width: 795px;
+    border-right: 5px solid red;
+}
+
+
+
+.esqueleto{
+    max-width: 495px;
+    width: 495px;
+    margin-left: 300px;
+    border-right: 1px solid #111;
+    border-bottom: 1px solid #111;
+
+}
+
+#img-post{
+    border-radius: 20px;
+    width: 88%;
+}
+
+.cima{
+    display: flex;
+    width: 105%;
+    color: white;
+    margin-top: 5px;
+    max-height: 700px;
+    margin-left: -70px;
+
+}
+
+.user{
+    margin-left: 20px;
+    text-decoration: none;
+    color: white;
+    font-size: 13px;
+    font-weight: bold;
+}
+.name{
+    font-size: 13px;
+}
+
+.biooo{
+    max-width: 495px;
+    font-size: 15px;
+    font-weight: normal;
+    margin-top: 17px;
+    margin-left: -183px;
+    overflow-wrap: break-word;  
+    word-wrap: break-word; 
+    word-break: break-word;
+        
+}
+
+@media (max-width: 1300px) {
+    #side-bar {
+        max-width: 70px;
+        margin-right: 10px;
+        text-align: right;
+    }
+    .text, .text-normal{
+        font-size: 0px;
+    }
+
+    .home, .notification, .new, .pictu{
+        width: 50px;
+        cursor: pointer;
+    }
+
+    .new{
+        display: block;
+    }
+    #butn{
+        display: none;
+    }
+
+    .tudo{
+        margin-left: -14px;
+    }
+}
+@media (max-width: 1200px){
+    .tudo{
+        margin-left: -15px;
+        color: red;
+    }
+} 
+
+
