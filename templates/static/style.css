@@ -1,0 +1,33 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#cont{
+    display: block;
+    background: black;
+}
+
+#image{
+    margin-top: 15px;
+    width: 27px;
+}
+
+#side-bar {
+    margin-left: 40px;
+    max-width: 280px;
+    height: 580px;
+    background: black;
+    border-right: 1px solid rgb(133, 131, 131);
+}
+
+@media (max-width: 1000px) {
+    #oi {
+        max-width: 20px;
+        margin-right: 10px;
+
+    }
+
+
+}
