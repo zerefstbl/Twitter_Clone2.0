@@ -1,0 +1,76 @@
+{% load static %}
+<nav id="footer" style="background-color: black; width: 500px;">
+    <a class="navbar-brand" href="/"><img style="width: 30px;" class="hpagei" src="{% static 'img/new-home.png' %}" alt=""></a>
+    <a class="navbar-brand" href="#"><img style="width: 30px;" class="hpagei" src="{% static 'img/search-3-32.png' %}" alt=""></a>
+    <a class="navbar-brand" href="#"><img style="width: 30px;" class="hpagei" src="{% static 'img/notification.png' %}" alt=""></a>
+    <a class="navbar-brand" href="#"><img style="width: 30px;" class="hpagei" src="{% static 'img/message.png' %}" alt=""></a>
+<br>
+<br><br>
+</nav>
+
+<div class="tremzin">
+<img class="peninha" src="{% static 'img/feather-32.png' %}" alt="">
+</div>
+<div class="col" id="side-bar">
+    <div class="icon">
+        <img id="image" src="{% static 'img/twitter-brands.svg' %}" alt="">
+        <div class="home"><a href="/"></a>
+            <div class="vaivai">
+        <a href="/"><img id="imagem" src="{% static 'img/new-home.png' %}" alt=""></a>
+        <a class="text" href="/">
+        Home
+        </a>
+    </div>
+</a></div>
+
+    <div class="notification">
+        <div class="not">
+
+        <a href="/"><img id="imagem" src="{% static 'img/notification.png' %}" alt=""></a>
+        <a class="text-normal" href="/">
+        Notificações
+        </a>
+    </div>
+    </div>
+    <div class="notification">
+        <div class="not">
+
+        <a href="/"><img id="imagem" src="{% static 'img/message.png' %}" alt=""></a>
+        <a class="text-normal" href="/">
+        Messages
+        </a>
+    </div>
+    </div>
+    <div class="notification">
+        <div class="not">
+
+        <img id="imagem" src="{% static 'img/user-32.png' %}" alt="">
+        <a class="text-normal" href="/">
+        Profile
+        </a>
+    </div>
+    </div>
+    <div class="notification">
+        <div class="not">
+
+        <img id="imagem" src="{% static 'img/door-8-32.png' %}" alt="">
+        <a class="text-normal" href="{% url 'account_logout' %}">
+        Logout
+        </a>
+    </div>
+    </div>
+
+    <button id="butn" style="margin-right: 0px;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+        Tweet
+      </button>
+      <div class="new" id="lolo">
+        <a href="/"><div id="lala" class="tesk">
+
+        <img id="imagem" style="margin-top: 16px;" src="{% static 'img/feather-32.png' %}" alt="">
+        <a class="text-normal" href="/">
+        Profile
+        </a>
+    </div></a>
+    </div>
+</div>
+</div>

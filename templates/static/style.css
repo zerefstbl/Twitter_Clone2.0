@@ -4,6 +4,11 @@
     box-sizing: border-box;
 }
 
+.container{
+    max-width: 1370px;
+    width: 100%;
+}
+
 #cont{
     background: black;
 }
@@ -117,6 +122,22 @@
 }
 
 
+.tremzin{
+    width: 60px;
+    height: 60px;
+    border-radius: 70px;
+    background-color: rgb(29, 155, 240);
+    display: none;
+    position: fixed;
+    margin-top: 19%;
+    margin-left: 42%;
+}
+
+.peninha{
+    margin-left: 12px;
+    margin-top: 16px;
+}
+
 
 .pictu:hover{
     background: #111;
@@ -157,8 +178,8 @@
     width: 80px;
     height: 40px;
     border-radius: 30px;
-    margin-top: 40px;
-    margin-left: 150%;
+    margin-top: -60px;
+    margin-left: 100%;
 }
 
 
@@ -192,7 +213,7 @@
     background-color: black;
     max-width: 600px;
     margin-left: 195px;
-    height: 200px;
+    height: 230px;
     border: 1px solid #111;
 
 }
@@ -215,6 +236,7 @@ p{
     font-size: 21px;
     font-weight: bold;
 }
+
 
 
 .profile-picture{
@@ -307,19 +329,38 @@ input::placeholder{
         
 }
 
+
+#footer{
+    display: none;
+}
+
+.hpagei{
+    display: none;
+}
+
+@media (min-width: 1300px){
+    #footer{
+        display: none;
+    }
+}
+
 @media (max-width: 1300px) {
     #side-bar {
-        max-width: 70px;
         margin-right: 10px;
         text-align: right;
+        width: 90px;
     }
     .text, .text-normal{
         font-size: 0px;
     }
 
     .home, .notification, .new, .pictu{
-        width: 50px;
         cursor: pointer;
+        width: 45px;
+    }
+
+    .icon{
+        margin-left: 10px;
     }
 
     .new{
@@ -332,6 +373,11 @@ input::placeholder{
     .tudo{
         margin-left: -14px;
     }
+
+    .esqueleto{
+        margin-left: 91px;
+    }
+
 }
 @media (max-width: 1200px){
     .tudo{
@@ -340,4 +386,84 @@ input::placeholder{
     }
 } 
 
+@media (max-width: 750px){
+    .bottom-bar{
+        background: red;
+        width: 500px;
+        margin-left: -160px;
+        margin-top: 200%;
+        position: fixed;
+        display: block;
+        height: 200px;
+    }
+    .tremzin{
+        display: block
+    }
+    #side-bar{
+        display: none;
+    }
 
+    #footer{
+        display: block;
+        position: fixed;
+        margin-top: 202%;
+        width: 100%;
+        margin-left: -146px;
+        height: 70px;
+        background: black;
+    }
+
+    .container{
+        max-width: 100px;
+        height: 10px;
+    }
+
+    .tudo{
+        display: none;
+    }
+
+    .esqueleto{
+        max-width: 305px;
+        margin-left: -70px;
+    }
+
+    #img-post{
+        width: 300px;
+        margin-top: 10px;
+        margin-left: -10px;
+    }
+
+
+    .conteudo{
+        width: 400px;
+        max-height: 1000px;
+    }
+    .hpagei{
+        margin-left: 43px;
+        margin-top: 10px;
+    }
+}
+
+
+
+@media (max-device-width: 667px){
+    
+    #footer{
+        display: block;
+        position: fixed;
+        margin-top: 0%;
+        width: 100%;
+        margin-left: -131px;
+        height: 70px;
+        background: black;
+    }
+    .hpagei{
+        display: block;
+        margin-left: 38px;
+        margin-right: -10px;
+        width: 60px;
+        margin-top: 10px;
+    }
+    .esqueleto{
+    }
+}

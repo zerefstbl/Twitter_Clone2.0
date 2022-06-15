@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <br>
+{% include 'folders/nav.html' %}
+<br><br><br><br>
+<style>
+    .tremzin{
+        display: none;
+    }
+</style>
+<div class="esqueleto">
+    <div class="cima">
+        <img style="width: 30px; height: 30px; margin-left: 10px" src="{% static 'img/user-32.png' %}" alt="">
+        <a href="/" style="text-decoration: none; color: white; margin-left: 10px;" class="name">@{{ post.author }}</a>
+        <a style="text-decoration: none; color: white; margin-left: -35px; margin-top: 30px;" href="/" class="biooo">{{ post.body }}</a>
+
+    </div>
+    {% if post.image %}
+    <a href="/"><img style="margin-top: 10px;" id="img-post" src="{{ post.image.url }}" alt=""></a>
+    {% endif %}
+<div class="likes">
+    <img style="width: 18px; margin-left: 10px; margin-top: 15px;" src="{% static 'img/liked.png' %}" alt="">
+    {% if request.user == post.author %}
+    <div class="dropdown">
+        <button style="background: black; margin-left: 70%;"
+            class="btn mt-0 btn-sm btn-secondary dropdown-toggle" type="button"
+            id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
+            Opções
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="{% url 'post_delete' post.pk %}">Excluir</a>
+            <a class="dropdown-item" href="{% url 'post_edit' post.pk %}">Editar</a>
+        </div>
+    </div>
+    {% endif %}
+</div>         
+</div>
+</div>
+</div>
+
+{% endblock content %}
