@@ -19,15 +19,29 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 class PostListView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
-        form = PostForm()
-        posts = Post.objects.all().order_by('-id')
         user = self.request.user
+        form = PostForm()
+
+        profiles = Profile.objects.all().order_by('-pk')
+
+        logged_in_user = request.user
+
+        posts = Post.objects.filter(
+            author__profile__followers__in=[
+                logged_in_user.id
+            ]
+        ).order_by('-id')
+
+
 
         
         context = {
             'form': form,
             'posts': posts,
+            'profiles': profiles,
         }
+
+        
 
         return render(request, 'social/index.html', context)
 
@@ -88,11 +102,97 @@ class ProfileView(View):
         profile = Profile.objects.get(pk=pk)
         user = request.user
 
-        posts = Post.objects.filter(author=user).order_by('-id')
+        posts = Post.objects.filter(author=profile.user).order_by('-id')
+
+        is_following = False
+
+        followers = profile.followers.all()
+
+
+        count_followers = len(followers)
+
+
+        for follower in followers:
+            if follower == user:
+                is_following = True
+                break
+            else:
+                is_following = False
+
+
 
         context = {
             'profile': profile,
-            'posts': posts
+            'posts': posts,
+            'is_following': is_following,
+            'count_followers': count_followers,
+            'followers': followers,
         }
 
+
         return render(request, 'social/profile.html', context)
+
+class ProfileEditView(UserPassesTestMixin, LoginRequiredMixin, UpdateView):
+    template_name = 'social/post_edit.html'
+    model = Profile
+    fields = ['name', 'bio', 'birth_date', 'picture']
+
+    def get_success_url(self):
+        pk = self.kwargs['pk']
+        return reverse_lazy('profile', kwargs={'pk': pk})
+
+    def test_func(self):
+        profile = self.get_object()
+        return self.request.user == profile.user
+        
+
+class AddFollowerView(LoginRequiredMixin, View):
+    def post(self, request, pk, *args, **kwargs):
+
+        profile = Profile.objects.get(pk=pk)
+
+        profile.followers.add(request.user)
+
+        return redirect('profile', pk=profile.pk)
+
+    
+class DeleteFollowerView(View):
+    def post(self, request, pk, *args, **kwargs):
+        user = request.user
+
+        profile = Profile.objects.get(pk=pk)
+
+        profile.followers.remove(user)
+
+        return redirect('profile', pk=profile.pk)
+
+class AddLikeView(View):
+    def post(self, request, pk, *args, **kwargs):
+
+        post = Post.objects.get(pk=pk)
+
+        is_like = False
+
+        likes = post.likes.all() 
+
+        for like in likes:
+            if like == request.user:
+                is_like = True 
+                break
+            else:
+                is_like = False
+
+        if is_like == True:
+            post.likes.remove(request.user)
+
+        if is_like == False:
+            post.likes.add(request.user)
+
+        
+
+        return redirect('index')
+
+
+class SearchProfileView(View):
+    def get(self, request, *args, **kwargs):
+        pass

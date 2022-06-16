@@ -15,7 +15,7 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-CSRF_TRUSTED_ORIGINS = ['https://f7e0-205-164-240-134.sa.ngrok.io']
+CSRF_TRUSTED_ORIGINS = ['https://edf3-205-164-240-235.sa.ngrok.io']
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 

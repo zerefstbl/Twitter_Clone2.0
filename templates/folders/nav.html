@@ -3,7 +3,7 @@
     <a class="navbar-brand" href="/"><img style="width: 30px;" class="hpagei" src="{% static 'img/new-home.png' %}" alt=""></a>
     <a class="navbar-brand" href="#"><img style="width: 30px;" class="hpagei" src="{% static 'img/search-3-32.png' %}" alt=""></a>
     <a class="navbar-brand" href="#"><img style="width: 30px;" class="hpagei" src="{% static 'img/notification.png' %}" alt=""></a>
-    <a class="navbar-brand" href="#"><img style="width: 30px;" class="hpagei" src="{% static 'img/message.png' %}" alt=""></a>
+    <a class="navbar-brand" href="{% url 'profile' request.user.pk %}"><img style="width: 30px;" class="hpagei" src="{% static 'img/user-32.png' %}" alt=""></a>
 <br>
 <br><br>
 </nav>
@@ -45,7 +45,7 @@
         <div class="not">
 
         <img id="imagem" src="{% static 'img/user-32.png' %}" alt="">
-        <a class="text-normal" href="/">
+        <a class="text-normal" href="{% url 'profile' request.user.pk %}">
         Profile
         </a>
     </div>
@@ -60,9 +60,9 @@
     </div>
     </div>
 
-    <button id="butn" style="margin-right: 0px;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-        Tweet
-      </button>
+    <a href="{% url 'profile' request.user.pk %}"><button id="butn" style="margin-right: 0px;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+        Editar perfil
+      </button></a>
       <div class="new" id="lolo">
         <a href="/"><div id="lala" class="tesk">
 

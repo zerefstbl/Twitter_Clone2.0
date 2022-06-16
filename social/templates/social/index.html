@@ -4,6 +4,7 @@
 {% block content %}
 <div class="container">
     <div class="row">
+
         {% include 'folders/nav.html' %}
         <div class="col-mt-5">
         <div class="tudo">
@@ -21,27 +22,81 @@
         </div>    
         </div>
             </div>
+            <div class="col" id="pc">
+                <h4 style="margin-top: 15px; text-align: center; font-weight: bold;">Quem seguir</h4>
+                
+                <br>
+                {% for perfil in profiles %}
+                {% if forloop.counter <= 3 %}
+
+                <div class="rec">
+                    <img class="ladod" src="{{ perfil.picture.url }}" alt="">
+                    
+                    <a href="{% url 'profile' perfil.pk %}" class="fdp">@{{ perfil.user }}</a>
+                    {% if request.user == perfil.user %}
+                    <a href="{% url 'profile' perfil.pk %}" style="margin-left: 210px;" class="userrr"></a>
+                    {% endif %}
+                    {% if perfil.followers.count <= 0 %}
+                    <form method='POST' action="{% url 'add_follower' perfil.pk %}">
+                        {% csrf_token %}
+                    <button style="margin-left: 200px;" class="recb">Follow</button>
+                        
+                    </form>
+                    {% else %}
+                    {% for follower in perfil.followers.all %}
+                    {% if follower == request.user %}
+                    <form method='POST' action="{% url 'remove_follower' perfil.pk %}">
+                    {% csrf_token %}
+                     <button style="margin-left: 200px;" class="recb">Unfollow</button>
+
+                
+                     </form>
+                    {% elif follower != request.user %}
+                    <form method='POST' action="{% url 'add_follower' perfil.pk %}">
+                    {% csrf_token %}
+                    <button style="margin-left: 200px;" class="recb">Follow</button>
+                    </form>
+                    {% else %}
+                    <button class="recb">VAIFollow</button>
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
+                    
+                    </form>
+                </div>
+                <br>
+                
+                {% endif %}
+                {% endfor %}
+            </div>
 <br><br><br><br>
-            {% for post in posts %}
+            {% for post in posts  %}
                 <div class="esqueleto">
                         <div class="cima">
                             <br>
-                            <img style="width: 30px; height: 30px; margin-left: 10px" src="{% static 'img/user-32.png' %}" alt="">
-                            <a href="/" style="text-decoration: none; color: white; margin-left: 10px;" class="name">@{{ post.author }}</a>
+                            {% if post.author.profile.picture.url %}
+                            <img style="width: 30px; height: 30px; margin-left: 10px; border-radius: 30px;" src="{{ post.author.profile.picture.url }}" alt="">
+                            {% else %}
+                            <img style="width: 30px; height: 30px; margin-left: 10px" src="{% static 'img/default.png' %}" alt="">
+                            {% endif %}
+                            <a href="{% url 'profile' post.author.pk %}" style="text-decoration: none; color: white; margin-left: 10px;" class="name">@{{ post.author }}</a>
                             <a style="text-decoration: none; color: white; margin-left: -35px; margin-top: 30px;" href="{% url 'post_detail' post.pk %}" class="biooo">{{ post.body }}</a>
                         </div>
                         {% if post.image %}
                         <a href="{% url 'post_detail' post.pk %}"><img style="margin-top: 10px;" id="img-post" src="{{ post.image.url }}" alt=""></a>
                         {% endif %}
                     <div class="likes">
-                        <img style="width: 18px; margin-left: 10px; margin-top: 15px;" src="{% static 'img/liked.png' %}" alt="">
-                  </div>
+                        <form method="POST" action="{% url 'add_like' post.pk %}">
+                            {% csrf_token %}
+                            
+                            <button style="background-color: transparent; height: 21px; margin-top: 6px; border: 0px"><img style="width: 18px; margin-left: 0px; margin-top: -8px;" src="{% static 'img/liked.png' %}" alt=""></button>
+                            <p style="color: white; font-weight: normal; font-size: 16px; margin-left: 22px; margin-top: -25.5px">{{ post.likes.all.count }}</p>
+                    </form>
+                    </div>
                 </div>
                 {% endfor %}
  
-    <div class="col">
 
-    </div>
 
 </div>
 

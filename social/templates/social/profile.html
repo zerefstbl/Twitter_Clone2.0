@@ -1,0 +1,230 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container">
+    <div class="row">
+
+
+        {% include 'folders/nav.html' %}
+        <style>
+
+            .tremzin{
+                display: none;
+            }
+            .tudo{
+                display: block;
+                height: 260px;
+            }
+            .nevi{
+                margin-top: 30px;
+                margin-left: -100px;
+                color: white;
+            }
+            .oo{
+                margin-top: 60px;
+                margin-left: -60px;
+                color: white;
+            }
+
+            .baix{
+                margin-top: 90px;
+                margin-left: -60px;
+                color: white;
+            }
+
+            .edit{
+                margin-top: 130px;
+                margin-left: -90px;
+                width: 100px;
+                color: white;
+                background: black;
+                text-align: center;
+                border-radius: 30px;
+                height: 25px;
+                border: 1px solid white;
+                font-size: 14px;
+                text-decoration: none;
+            }
+
+            .edit:hover{
+                color: white;
+                text-decoration: none;
+            }
+            .editi{
+                margin-left: -100px;
+                margin-top: 170px;
+                width: 100px;
+                color: white;
+                background: black;
+                text-align: center;
+                border-radius: 30px;
+                height: 25px;
+                border: 1px solid white;
+                font-size: 14px;
+                text-decoration: none;
+             }
+             .edit_r{
+                margin-left: -95px;
+                margin-top: 150px;
+                width: 140px;
+                color: white;
+                background: black;
+                text-align: center;
+                border-radius: 30px;
+                height: 25px;
+                border: 1px solid white;
+                font-size: 14px;
+                text-decoration: none;
+             }
+
+             
+             #folo{
+                margin-top: 200px;
+                margin-left: -161px;
+                height: 25px;
+                text-align: center;
+                width: 140px;
+                color: white;
+                background: black;
+                text-align: center;
+                border-radius: 30px;
+                border: 0px solid white;
+                font-size: 14px;
+                text-decoration: none;
+             }
+
+
+
+            @media (max-device-width: 430px){
+                .container{
+                    max-width: 380px;
+                    width: 100%;
+                }
+                #viii{
+                    width: 380px;
+                }
+                .tudo{
+                    margin-top: 90px;
+                    max-width: 380px;
+                    margin-left: 0px;
+                }
+
+                #footer{
+                    margin-left: 10px;
+                }
+
+
+                .esqueleto{
+                    margin-left: 70px;
+                    width: 380px;
+                }
+                .top{
+                    width: 350px;
+                }
+                
+                .edit, .edit_r{
+                    margin-left: -105px;
+                }
+
+            }
+
+        </style>
+        <div id="viii" class="col-mt-5">
+            <br>
+            <div class="tudo">
+            <div class="top">
+                    <div class="pensando">
+                        
+                        <img style="width: 155px; height: 150px; margin-left: 6px; border-radius: 180px;" class="profile-pictures" src="{{ profile.picture.url }}" alt="">
+                        {% if profile.name %}
+                        <p class="neve" style="">{{ profile.name }}</p>
+                        <br>
+                        <span class="nevi" style="">@{{ profile.user }}</span>
+                        {% else %}
+                        <p class="neve" style="">@{{ profile.user }}</p>
+                        {% endif %}
+
+                        {% if profile.birth_date %}
+                        <span class="baix" style="">{{ profile.birth_date }}</span>
+                        {% endif %}
+                        {% if request.user == profile.user %}
+                        <a class="edit" href="{% url 'profile_edit' profile.pk %}">Editar Perfil</a>
+                        {% else %}
+                        {% if is_following %}
+                        <form method="POST" action="{% url 'remove_follower' profile.pk %}"">
+                            {% csrf_token %}
+                        <button class="edit_r">Deixar de Seguir</button>
+                        </form>
+                        {% else %}
+                        <form method="POST" action="{% url 'add_follower' profile.pk %}"">
+                            {% csrf_token %}
+                        <button class="edit">Seguir</button>
+                        </form>
+                        {% endif %}
+                        {% endif %}
+                            <button id="folo"  type="button"
+                                  data-toggle="modal" data-target="#exampleModal">
+                                 {{ count_followers }}  Seguidores
+                                </button>
+                        
+            </div>    
+            </div>
+                </div>
+    <br><br><br><br>    
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div style="margin-top: 200px; max-width: 400px; background: black; color: white" class="modal-dialog" role="document">
+        <div style="background: black; " class="modal-content">
+            <div class="modal-header" style="background: black;">
+                <h5 class="modal-title" id="exampleModalLabel">Seguidores</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {% csrf_token %}
+                <table>
+                    {% for seguidor in followers %}
+                    <div class="col align-self-center mt-3">
+                        <img style="width: 50px; height: 40px; border-radius: 50px;" src="{{ seguidor.profile.picture.url }}"
+                            alt="" class="avator">
+                        <a class="col-1" style="color: white;" href="{% url 'profile' seguidor.pk %}">
+                            @{{ seguidor.username }}</a>
+                    </div>
+                    {% empty %}
+                    <h3>Nenhum seguidor.</h3>
+                    {% endfor%}
+                </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+                {% for post in posts %}
+                    <div class="esqueleto">
+                            <div class="cima">
+                                <br>
+                                <img style="width: 50px; height: 50px; margin-left: 10px; border-radius: 30px;" src="{{ profile.picture.url }}" alt="">
+                                <a href="/" style="text-decoration: none; color: white; margin-left: 10px;" class="name">@{{ post.author }}</a>
+                                <a style="text-decoration: none; color: white; margin-left: -35px; margin-top: 30px;" href="{% url 'post_detail' post.pk %}" class="biooo">{{ post.body }}</a>
+                            </div>
+                            {% if post.image %}
+                            <a href="{% url 'post_detail' post.pk %}"><img style="margin-top: 10px;" id="img-post" src="{{ post.image.url }}" alt=""></a>
+                            {% endif %}
+                        <div class="likes">
+                            <img style="width: 18px; margin-left: 10px; margin-top: 15px;" src="{% static 'img/liked.png' %}" alt="">
+                      </div>
+                    </div>
+                    {% endfor %}
+     
+        <div class="col">
+    
+        </div>
+    
+    </div>
+
+    </div>
+</div>
+{% endblock content %}
