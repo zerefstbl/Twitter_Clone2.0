@@ -27,9 +27,10 @@
         <div class="not">
 
         <a href="/"><img id="imagem" src="{% static 'img/notification.png' %}" alt=""></a>
-        <a class="text-normal" href="/">
+        <a class="text-normal" href="{% url 'notifications' request.user.pk  %}">
         Notificações
         </a>
+
     </div>
     </div>
     <div class="notification">

@@ -12,5 +12,6 @@ urlpatterns = [
     path('profile/followers/add/<int:pk>', views.AddFollowerView.as_view(), name='add_follower'),
     path('profile/followers/remove/<int:pk>', views.DeleteFollowerView.as_view(), name='remove_follower'),
     path('index/add/like/<int:pk>', views.AddLikeView.as_view(), name='add_like'),
-    path('search/', views.SearchProfileView.as_view(), name='profile_search')
+    path('search/', views.SearchProfileView.as_view(), name='profile_search'),
+    path('notifications/<int:pk>', views.NotificationView.as_view(), name='notifications')
 ]   

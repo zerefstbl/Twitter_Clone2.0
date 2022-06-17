@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <h1 style="color: black;"></h1>
+        {% include 'folders/nav.html' %}
+
+        <br><br><br><br>
+<style>
+    .tremzin{
+        display: none;
+    }
+    .esqueleto{
+        margin-top: 80px;
+        height: 130px;
+    }
+
+</style>
+
+{% for notification in notifications %}
+<div class="esqueleto">
+    
+    <div class="cima">
+        <img style="width: 70px; height: 70px; margin-left: 10px; border-radius: 70px; margin-top: 10px;" src="{{ notification.to_user.profile.picture.url }}" alt="">
+        <a style="margin-left: 92px; position: absolute; margin-top: 14px;" href="">{{ notification.to_user }}</a>
+        <a href="/" style="text-decoration: none; color: white; margin-left: 10px;" class="name"></a>
+        {% if notification.notification_type == 1 %}
+        <a style="text-decoration: none; color: white; margin-left: 96px; margin-top: 60px; position: absolute;" href="/" class="biooo">Seguiu você</a>
+        {% else %}
+        <a style="text-decoration: none; color: white; margin-left: 96px; margin-top: 60px; position: absolute;" href="/" class="biooo">não você</a>
+        {% endif %}
+    </div>
+
+    <a href="/"><img style="margin-top: 10px;" id="img-post" src="" alt=""></a>
+ 
+         
+</div>
+{% empty %}
+<h1>TGEURGUERHG</h1>
+{% endfor %}
+    </div>
+</div>
+{% endblock content %}

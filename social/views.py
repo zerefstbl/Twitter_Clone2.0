@@ -17,6 +17,8 @@ from django.db.models import Q
 
 from .forms import PostForm
 
+from .models import Notifications
+
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 class PostListView(LoginRequiredMixin, View):
@@ -25,6 +27,8 @@ class PostListView(LoginRequiredMixin, View):
         form = PostForm()
 
         profiles = Profile.objects.all().order_by('-pk')
+
+        
 
         logged_in_user = request.user
 
@@ -160,6 +164,8 @@ class AddFollowerView(LoginRequiredMixin, View):
 
         profile.followers.add(request.user)
 
+        notification = Notifications.objects.create(to_user=request.user, from_user=profile.user, notification_type=1)
+
 
         profile.teste.add(profile.pk)
 
@@ -171,6 +177,10 @@ class DeleteFollowerView(View):
         user = request.user
 
         profile = Profile.objects.get(pk=pk)
+
+        notification = Notifications.objects.get(to_user=request.user)
+
+        notification.delete()
 
         profile.followers.remove(user)
 
@@ -224,7 +234,17 @@ class SearchProfileView(View):
             return render(request, 'social/search.html')
             
 
+class NotificationView(View):
+    def get(self, request, pk, *args, **kwargs):
+        notifications = Notifications.objects.filter(from_user=request.user).order_by('-date')
 
+        context = {
+            'notifications': notifications,
+        }
+
+        return render(request, 'social/notification.html', context)
+
+    
         
 
 
