@@ -1,7 +1,7 @@
 {% load static %}
 <nav id="footer" style="background-color: black; width: 500px;">
     <a class="navbar-brand" href="/"><img style="width: 30px;" class="hpagei" src="{% static 'img/new-home.png' %}" alt=""></a>
-    <a class="navbar-brand" href="#"><img style="width: 30px;" class="hpagei" src="{% static 'img/search-3-32.png' %}" alt=""></a>
+    <a class="navbar-brand" href="{% url 'profile_search' %}"><img style="width: 30px;" class="hpagei" src="{% static 'img/search-3-32.png' %}" alt=""></a>
     <a class="navbar-brand" href="#"><img style="width: 30px;" class="hpagei" src="{% static 'img/notification.png' %}" alt=""></a>
     <a class="navbar-brand" href="{% url 'profile' request.user.pk %}"><img style="width: 30px;" class="hpagei" src="{% static 'img/user-32.png' %}" alt=""></a>
 <br>

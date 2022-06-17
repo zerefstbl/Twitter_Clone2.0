@@ -13,6 +13,8 @@ from django.views.generic.edit import UpdateView
 
 from django.urls import reverse_lazy
 
+from django.db.models import Q
+
 from .forms import PostForm
 
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -31,6 +33,7 @@ class PostListView(LoginRequiredMixin, View):
                 logged_in_user.id
             ]
         ).order_by('-id')
+
 
 
 
@@ -56,6 +59,10 @@ class PostListView(LoginRequiredMixin, View):
             new_post.author = request.user
             new_post.save()
 
+
+        home = Profile.objects.get(user=request.user)
+
+        home.teste.add(request.user)
 
         posts = Post.objects.all().order_by('-id')
         context = {
@@ -153,6 +160,9 @@ class AddFollowerView(LoginRequiredMixin, View):
 
         profile.followers.add(request.user)
 
+
+        profile.teste.add(profile.pk)
+
         return redirect('profile', pk=profile.pk)
 
     
@@ -194,5 +204,30 @@ class AddLikeView(View):
 
 
 class SearchProfileView(View):
+    def post(self, request, *args, **kwargs):
+
+        return render(request, 'social/search.html')
+
+
     def get(self, request, *args, **kwargs):
-        pass
+        query = self.request.GET.get('query')
+        
+        try:
+            search_results = Profile.objects.filter(
+                Q(user__username__icontains=query)
+            ).order_by('-pk')
+            context = {
+            'search_results': search_results
+        }
+            return render(request, 'social/search.html', context)
+        except:
+            return render(request, 'social/search.html')
+            
+
+
+        
+
+
+
+        
+

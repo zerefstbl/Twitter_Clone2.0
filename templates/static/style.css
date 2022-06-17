@@ -18,11 +18,26 @@
     margin-left: 835px;
     width: 350px;
     position: fixed;
-    margin-top: -150px;
+    margin-top: -105px;
     background-color: rgb(22, 24, 28);
     color: white;
     
 }
+
+
+
+#search-bar{
+    height: 50px;
+    position: fixed;
+    margin-top: -220px;
+    margin-left: 837px;
+    border-radius: 50px;
+    text-align: center;
+    background-color: rgb(22, 24, 28);
+
+    width: 345px;
+}
+
 
 .rec{
     display: flex;
@@ -82,6 +97,11 @@
 
     
 }
+
+
+
+
+
 
 #side-bar {
     margin-left: -70px;
@@ -320,17 +340,6 @@ p{
     
 }
 
-input{
-    margin-left: 20px;
-    background-color: black;
-    border: 0px solid black;
-    color: white;
-}
-
-input::placeholder{
-    border: 0px;
-    color: #666;
-}
 
 .pensando{
     display: flex;

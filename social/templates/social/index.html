@@ -11,8 +11,8 @@
         <div class="top">
             <p class="neve">Home</p>
             <div class="pensando">
-            <img class="profile-picture" src="{% static 'img/user-32.png' %}" alt="">
-            <form action="" method="POST" enctype="multipart/form-data">
+            <img class="profile-picture" style="border-radius: 30px;" src="{{ request.user.profile.picture.url }}" alt="">
+            <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
             <div style="margin-left: 10px; margin-top: 10px; color: white;">{{ form | crispy }}</div>
             <div>
@@ -21,6 +21,16 @@
         </form>
         </div>    
         </div>
+            </div>
+            <div class="searchBox">
+                <form action="{% url 'profile_search' %}" method="GET">
+                <input class="searchInput"type="text" name="query" value="{{ request.GET.query }}" placeholder="Search">
+                <button class="searchButton">
+                    <i class="material-icons">
+                        search
+                    </i>
+                </button>
+            </form>
             </div>
             <div class="col" id="pc">
                 <h4 style="margin-top: 15px; text-align: center; font-weight: bold;">Quem seguir</h4>
@@ -103,5 +113,56 @@
 </div>
 <!-- As a link -->
 </div>
+<style>
+    .searchBox {
+    position: fixed;
+    top: 2%;
+    left: 69.7%;
+    background: rgb(22, 24, 28);
+    height: 50px;
+    width: 340px;
+    border-radius: 40px;
+    padding: 10px;
+
+}
+
+.searchButton {
+    color: white;
+    float: left;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #2f3640;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.4s;
+    font-size: 11px;
+    margin-top: -5px;
+}
+
+.searchInput {
+    border:none;
+    background: none;
+    outline:none;
+    float:center;
+    color: white;
+    font-size: 16px;
+    transition: 0.4s;
+    line-height: 40px;
+    margin-top: -5px;
+    width: 240px;
+    padding: 0 6px;
+
+
+}
+
+@media screen and (max-width: 620px) {
+.searchBox{
+
+    display: none;
+}
+}
+</style>
 
 {% endblock content %}

@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+
+        {% include 'folders/nav.html' %}
+
+        <br><br><br><br>
+<style>
+    .tremzin{
+        display: none;
+    }
+    .esqueleto{
+        margin-top: 80px;
+        height: 130px;
+    }
+    .searchBox {
+    display: none;
+    margin-top: 80px;
+    left: 26%;
+    background: rgb(22, 24, 28);
+    height: 50px;
+    width: 340px;
+    border-radius: 40px;
+    padding: 10px;
+
+}
+
+.searchButton {
+    color: white;
+    float: left;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #2f3640;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.4s;
+    font-size: 11px;
+    margin-top: -5px;
+}
+
+.searchInput {
+    border:none;
+    background: none;
+    outline:none;
+    float:center;
+    color: white;
+    font-size: 16px;
+    transition: 0.4s;
+    line-height: 40px;
+    margin-top: -5px;
+    width: 240px;
+    padding: 0 6px;
+
+
+}
+
+@media screen and (max-width: 620px) {
+.searchBox{
+    display: block;
+    width: 390px;
+    margin-left: -80px;
+    
+}
+
+.searchButton {
+    color: white;
+    float: right;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #2f3640;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.4s;
+    font-size: 11px;
+    margin-top: -40px;
+}
+}
+</style>
+<div class="searchBox">
+    <form action="{% url 'profile_search' %}" method="GET">
+    <input class="searchInput"type="text" name="query" value="{{ request.GET.query }}" placeholder="Search">
+    <button class="searchButton">
+        <i class="material-icons">
+            search
+        </i>
+    </button>
+</form>
+</div>
+
+{% for profile in search_results %}
+<div class="esqueleto">
+    
+    <div class="cima">
+        <img style="width: 70px; height: 70px; margin-left: 10px; border-radius: 70px; margin-top: 10px;" src="{{ profile.picture.url }}" alt="">
+        <a style="margin-left: 92px; position: absolute; margin-top: 14px;" href="{% url 'profile' profile.pk %}">@{{ profile.user }}</a>
+        <a href="/" style="text-decoration: none; color: white; margin-left: 10px;" class="name"></a>
+        <a style="text-decoration: none; color: white; margin-left: 96px; margin-top: 60px; position: absolute;" href="/" class="biooo">{{ profile.bio }}</a>
+
+    </div>
+
+    <a href="/"><img style="margin-top: 10px;" id="img-post" src="{{ post.image.url }}" alt=""></a>
+ 
+         
+</div>
+{% endfor %}
+
+    </div>
+</div>
+{% endblock content %}
