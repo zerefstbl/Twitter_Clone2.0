@@ -46,33 +46,21 @@
                     {% if request.user == perfil.user %}
                     <a href="{% url 'profile' perfil.pk %}" style="margin-left: 210px;" class="userrr"></a>
                     {% endif %}
-                    {% if perfil.followers.count <= 0 %}
+                    {% if perfil.user in seguindo.following.all %}
+                    <form method='POST' action="{% url 'remove_follower' perfil.pk %}">
+                        {% csrf_token %}
+                    <button style="margin-left: 200px;" class="recb">Unfollow</button>
+                    </form>
+                    {% else %}
                     <form method='POST' action="{% url 'add_follower' perfil.pk %}">
                         {% csrf_token %}
                     <button style="margin-left: 200px;" class="recb">Follow</button>
                         
                     </form>
-                    {% else %}
-                    {% for follower in perfil.followers.all %}
-                    {% if follower == request.user %}
-                    <form method='POST' action="{% url 'remove_follower' perfil.pk %}">
-                    {% csrf_token %}
-                     <button style="margin-left: 200px;" class="recb">Unfollow</button>
-
                 
-                     </form>
-                    {% elif follower != request.user %}
-                    <form method='POST' action="{% url 'add_follower' perfil.pk %}">
-                    {% csrf_token %}
-                    <button style="margin-left: 200px;" class="recb">Follow</button>
-                    </form>
-                    {% else %}
-                    <button class="recb">VAIFollow</button>
-                    {% endif %}
-                    {% endfor %}
                     {% endif %}
                     
-                    </form>
+                    
                 </div>
                 <br>
                 

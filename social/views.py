@@ -26,7 +26,11 @@ class PostListView(LoginRequiredMixin, View):
         user = self.request.user
         form = PostForm()
 
-        profiles = Profile.objects.all().order_by('-pk')
+        profiles = Profile.objects.all()
+
+        notification = Notifications.objects.filter(to_user=request.user)
+        
+        seguindo = Profile.objects.get(pk=request.user.pk)
 
         
 
@@ -46,6 +50,7 @@ class PostListView(LoginRequiredMixin, View):
             'form': form,
             'posts': posts,
             'profiles': profiles,
+            'seguindo': seguindo,
         }
 
         
@@ -164,6 +169,10 @@ class AddFollowerView(LoginRequiredMixin, View):
 
         profile.followers.add(request.user)
 
+        i = Profile.objects.get(pk=request.user.pk)
+
+        i.following.add(profile.pk)
+
         notification = Notifications.objects.create(to_user=request.user, from_user=profile.user, notification_type=1)
 
 
@@ -178,11 +187,16 @@ class DeleteFollowerView(View):
 
         profile = Profile.objects.get(pk=pk)
 
-        notification = Notifications.objects.get(to_user=request.user)
+        notification = Notifications.objects.filter(to_user=request.user)
 
         notification.delete()
 
         profile.followers.remove(user)
+
+        i = Profile.objects.get(pk=request.user.pk)
+
+        i.following.remove(profile.pk)
+
 
         return redirect('profile', pk=profile.pk)
 

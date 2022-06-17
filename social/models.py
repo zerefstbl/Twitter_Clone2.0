@@ -29,12 +29,22 @@ class Profile(models.Model):
     followers = models.ManyToManyField(User, related_name='followers', blank=True)
     picture = models.ImageField(upload_to='media/profile_pictures', default='media/profile_pictures/default.png', blank=True)
     teste = models.ManyToManyField(User, related_name='teste', blank=True)
+    following = models.ManyToManyField(User, blank=True, related_name='following')
+
+    
+    def __str__(self):
+        return self.user.username
+    
+
 
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
-        Profile.objects.create(user=instance)
+        lal = Profile.objects.create(user=instance)
+        print('OOOOOOOOOOOOOOS', lal.pk)
+        lal.following.add(lal.pk)
+        
         
         
 
