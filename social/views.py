@@ -15,6 +15,8 @@ from django.urls import reverse_lazy
 
 from django.db.models import Q
 
+from .forms import CommentForm
+
 from .forms import PostForm
 
 from .models import Notifications
@@ -26,7 +28,7 @@ class PostListView(LoginRequiredMixin, View):
         user = self.request.user
         form = PostForm()
 
-        profiles = Profile.objects.all()
+        profiles = Profile.objects.all().order_by('-pk')
 
         notification = Notifications.objects.filter(to_user=request.user)
         
@@ -42,10 +44,6 @@ class PostListView(LoginRequiredMixin, View):
             ]
         ).order_by('-id')
 
-
-
-
-        
         context = {
             'form': form,
             'posts': posts,
@@ -54,7 +52,6 @@ class PostListView(LoginRequiredMixin, View):
         }
 
         
-
         return render(request, 'social/index.html', context)
 
     def post(self, request, *args, **kwargs):
@@ -85,9 +82,31 @@ class PostDetailView(LoginRequiredMixin, View):
     def get(self, request, pk, *args, **kwargs):
         post = Post.objects.get(pk=pk)
 
-        context = {'post': post}
+        form = CommentForm()
+
+        comments = Comment.objects.filter(post=post)
+
+        context = {
+            'post': post,
+            'comments': comments,
+            'form': form,
+        }
 
         return render(request, 'social/post_detail.html', context)
+
+
+    def post(self, request, pk, *args, **kwargs):
+        post = Post.objects.get(pk=pk)
+        form = CommentForm(request.POST)
+
+        if form.is_valid():
+            new_comment = form.save(commit=False)
+            new_comment.author = request.user
+            new_comment.post = post
+            new_comment.save()
+
+        return redirect('post_detail', post.pk)
+
 
 class PostDeleteView(UserPassesTestMixin, LoginRequiredMixin, DeleteView):
     template_name = 'social/post_delete.html'
@@ -125,7 +144,7 @@ class ProfileView(View):
         followers = profile.followers.all()
 
 
-        count_followers = len(followers)
+        count_followers = len(followers) - 1
 
 
         for follower in followers:

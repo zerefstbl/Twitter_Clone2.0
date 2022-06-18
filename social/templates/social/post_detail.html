@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+{% load crispy_forms_tags %}
 
 <div class="container">
     <div class="row">
@@ -11,19 +12,131 @@
     .tremzin{
         display: none;
     }
+    .navbar{
+        background: black;
+        margin-left: 211px;
+        width: 585px;
+    }
+    .esqueleto{
+        margin-top: 20px;
+
+    }
+    .clicar{
+        width: 583px;
+        margin-top: 60px;
+    }
+    .likes{
+        width: 550px;
+        margin-top: 10px;
+    }
+    
+    .clicar2{
+        width: 553px;
+        border-bottom: 1px solid red;
+        height: 100px;
+        position: absolute;
+        border-right: 1px solid #111;
+        border-top: 1px solid #111;
+    }
+    .animal{
+        position: absolute;
+        background-color: rgb(29, 155, 240);
+        border: 0px;
+        color: white;
+        margin-left: 460px;
+        margin-top: 22px;
+        width: 77px;
+        height: 37px;
+        border-radius: 30px;
+        font-weight: bold;
+        font-size: 15px;
+    }
+    
+    input[type=text]{
+        background: black;
+        border: 1px solid black;
+        color: white;
+        outline: none;
+        width: 480px;
+        height: 50px;
+        margin-left: 72px;
+        margin-top: 13px;
+        
+    }
+
+    input[type=text]:focus{
+        border: 1px solid black;
+    }
+
+    .comentarios{
+        margin-left: 10px;
+        position: absolute;
+        margin-top: 80px;
+        border-bottom: 1px solid #111;
+        border-right: 1px solid #111;
+        width: 485px;
+        
+
+    }
+    .bo{
+        margin-top: 23px;
+        margin-left: -18px;
+        text-decoration: none;
+        color: white;
+
+    }
+
+    .bo:hover{
+        color: white;
+        text-decoration: none;
+    }
+
+    @media (max-width: 600px){
+        .navbar{
+            display: none;
+        }
+        .esqueleto{
+            margin-top: 80px;
+        }
+
+        .clicar{
+            width: 380px;
+        }
+        .likes{
+        width: 380px;
+        margin-top: 10px;
+    }
+        .clicar2{
+            width: 381px;
+        }
+        input[text=text]{
+            width: 320px;
+        }
+    
+    }
 </style>
+<div class="navbar">
+    <nav>
+        <img style="width: 20px; float: left; margin-top: 8px" src="{% static 'img/arrow-121-32.png' %}" alt="">
+        <h4 style="color: white; float: right; margin-left: 50px; margin-top: 3px;" >Tweet</h4>
+    </nav>
+</div>
 <div class="esqueleto">
     <div class="cima">
-        <img style="width: 30px; height: 30px; margin-left: 10px" src="{% static 'img/user-32.png' %}" alt="">
-        <a href="/" style="text-decoration: none; color: white; margin-left: 10px;" class="name">@{{ post.author }}</a>
-        <a style="text-decoration: none; color: white; margin-left: -35px; margin-top: 30px;" href="/" class="biooo">{{ post.body }}</a>
-
+        <img style="width: 45px; height: 45px; margin-left: 10px; border-radius: 45px;" src="{{ post.author.profile.picture.url }}" alt="">
+        <a href="/" style="text-decoration: none; color: white; margin-left: 10px;" class="name"><h6 style="font-weight: bold">{{ post.author }}</h6></a>
+        {% if post.image %}
+        <a style="text-decoration: none; color: white; margin-left: -90px; margin-top: 70px;" href="/" class="biooo"><h5 style=";">{{ post.body }}</h5></a>
+        {% else %}
+        <a style="text-decoration: none; color: white; margin-left: -120px; margin-top: 70px;" href="/" class="biooo"><h5 style=";">{{ post.body }}</h5></a>
+        {% endif %}
     </div>
     {% if post.image %}
     <a href="/"><img style="margin-top: 10px;" id="img-post" src="{{ post.image.url }}" alt=""></a>
     {% endif %}
-<div class="likes">
-    <img style="width: 18px; margin-left: 10px; margin-top: 15px;" src="{% static 'img/liked.png' %}" alt="">
+<div style="border-top: 1px solid #111; border-bottom: 1px solid #111; margin-left: -57px; position: absolute; height: 55px;" class="likes">
+    <p style="margin-top: 12px; margin-left: 0px; font-weight: bold; font-size: 18px; color: white; position: absolute;">{{ post.likes.count }}</p>
+    <p style="margin-top: 15px; margin-left: 19px; font-weight: normal; font-size: 15px; color: #555; position: absolute;">Likes</p>
     {% if request.user == post.author %}
     <div class="dropdown">
         <button style="background: black; margin-left: 70%;"
@@ -38,9 +151,41 @@
         </div>
     </div>
     {% endif %}
-</div>         
+</div>
+<div style="border-bottom: 0px solid #111;  height: 55px; margin-left: -58px;" class="clicar">
+    <form action="{% url 'add_like' post.pk %}" method="POST">
+    {% csrf_token %}
+        <button style="background: transparent; border: 0px; height: 20px; width: 20px; margin-top: 15px; margin-left: 0px;"><img style="position: absolute; width: 18px; margin-left: -9px; margin-top: -7px;" src="{% static 'img/liked.png' %}" alt=""></button>
+    </form>
+</div> 
+<div style="border-bottom: 1px solid #111;  height: 80px; margin-left: -58px;" class="clicar2">
+    <form action="{% url 'post_detail' post.pk %}" method="POST">
+    {% csrf_token %}
+    <img style="width: 60px; border-radius: 60px; display: flex; position: absolute; margin-top: 10px;" src="{{ request.user.profile.picture.url }}" alt="">
+    <button class="animal">Enviar</button>
+        {{ form }}
+</form>
 </div>
 </div>
+<div class="esqueleto" style="margin-top: 100px;">
+{% for comment in comments %}
+<div class="esqueleto" style="margin-top: 10px; margin-left: 10px; width: 485px;">
+    <div class="cima">
+        <br>
+        {% if post.author.profile.picture.url %}
+        <img style="width: 30px; height: 30px; margin-left: 10px; border-radius: 30px;" src="{{ comment.author.profile.picture.url }}" alt="">
+        {% else %}
+        <img style="width: 30px; height: 30px; margin-left: 10px" src="{% static 'img/default.png' %}" alt="">
+        {% endif %}
+        <a href="{% url 'profile' post.author.pk %}" style="text-decoration: none; color: white; margin-left: 10px;" class="name">@{{ comment.author }}</a>
+        <a style="text-decoration: none; color: white; margin-left: -35px; margin-top: 30px;" href="{% url 'post_detail' post.pk %}" class="biooo">{{ comment.comment }}</a>
+    </div>
+</div>
+    {% endfor %}
+</div>
+
+</div>
+
 </div>
 
 {% endblock content %}

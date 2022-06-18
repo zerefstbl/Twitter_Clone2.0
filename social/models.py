@@ -21,6 +21,7 @@ class Comment(models.Model):
     post = models.ForeignKey('Post', on_delete=models.CASCADE)
 
 
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name='profile', verbose_name='user')
     name = models.CharField(max_length=50, blank=True, null=True)
@@ -43,7 +44,7 @@ def create_user_profile(sender, instance, created, **kwargs):
     if created:
         lal = Profile.objects.create(user=instance)
         print('OOOOOOOOOOOOOOS', lal.pk)
-        lal.following.add(lal.pk)
+        lal.followers.add(lal.pk)
         
         
         

@@ -9,6 +9,10 @@
     width: 100%;
 }
 
+.blabla{
+    background: red;
+    margin-top: 1000px;
+}
 
 
 
@@ -543,5 +547,10 @@ p{
     }
     .esqueleto{
         max-width: 380px;
+    }
+}
+@media (max-width: 600px){
+    #footer{
+        width: 00px;
     }
 }

@@ -186,14 +186,15 @@
                 {% csrf_token %}
                 <table>
                     {% for seguidor in followers %}
+                    {% if seguidor == profile.user %}
+                    {% else %}
                     <div class="col align-self-center mt-3">
                         <img style="width: 50px; height: 40px; border-radius: 50px;" src="{{ seguidor.profile.picture.url }}"
                             alt="" class="avator">
                         <a class="col-1" style="color: white;" href="{% url 'profile' seguidor.pk %}">
                             @{{ seguidor.username }}</a>
                     </div>
-                    {% empty %}
-                    <h3>Nenhum seguidor.</h3>
+                    {% endif %}
                     {% endfor%}
                 </table>
             </div>

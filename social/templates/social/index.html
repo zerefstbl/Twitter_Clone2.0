@@ -5,6 +5,27 @@
 <div class="container">
     <div class="row">
 
+        <style>
+            input[type=text]{
+                background: black;
+                border: 0px;
+                outline: none;
+            }
+
+            input[type=file]{
+                background: black;
+                border: 0px;
+                color: white;
+                outline: none;
+            }
+
+            input[type=text]:focus{
+                border: 1px solid black;
+                background: black;
+                
+            }
+        </style>
+
         {% include 'folders/nav.html' %}
         <div class="col-mt-5">
         <div class="tudo">
@@ -15,6 +36,7 @@
             <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
             <div style="margin-left: 10px; margin-top: 10px; color: white;">{{ form | crispy }}</div>
+            <div style="margin-left: 10px; margin-top: 10px; color: white;">{{ imgform | crispy }}</div>
             <div>
             <button class="btnt">Tweet</button>
         </div>
@@ -24,7 +46,7 @@
             </div>
             <div class="searchBox">
                 <form action="{% url 'profile_search' %}" method="GET">
-                <input class="searchInput"type="text" name="query" value="{{ request.GET.query }}" placeholder="Search">
+                <input style="background: #2f3640" class="searchInput"type="text" name="query" value="{{ request.GET.query }}" placeholder="Search">
                 <button class="searchButton">
                     <i class="material-icons">
                         search
