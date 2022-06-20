@@ -24,6 +24,8 @@
                 background: black;
                 
             }
+
+
         </style>
 
         {% include 'folders/nav.html' %}
@@ -44,9 +46,9 @@
         </div>    
         </div>
             </div>
-            <div class="searchBox">
+            <div class="searchBox" style="background: #111;">
                 <form action="{% url 'profile_search' %}" method="GET">
-                <input style="background: #2f3640" class="searchInput"type="text" name="query" value="{{ request.GET.query }}" placeholder="Search">
+                <input style="background: #111" class="searchInput"type="text" name="query" value="{{ request.GET.query }}" placeholder="Search">
                 <button class="searchButton">
                     <i class="material-icons">
                         search
@@ -90,6 +92,34 @@
                 {% endfor %}
             </div>
 <br><br><br><br>
+<form action="{% url 'index' %}" method="POST" enctype="multipart/form-data" style="color: white; border-radius: 10px">
+    {% csrf_token %}
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div style="max-width: 600px; background: black; " class="modal-dialog" role="document">
+          <div style="background: black; width: 400px;"class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Novo Tweet</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form action="{% url 'index' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+              <table>
+              {{ form | crispy }}
+              </table>
+              <input type="submit" value="Tweet" class="btn" style="background: rgb(29, 155, 240); color: white; border-radius: 30px;">
+            </form>
+            </div>
+            <div class="modal-footer">
+            </div>
+          </div>
+        </div>
+      </div>
+</form>
+
+
             {% for post in posts  %}
                 <div class="esqueleto">
                         <div class="cima">
@@ -102,8 +132,14 @@
                             <a href="{% url 'profile' post.author.pk %}" style="text-decoration: none; color: white; margin-left: 10px;" class="name">@{{ post.author }}</a>
                             <a style="text-decoration: none; color: white; margin-left: -35px; margin-top: 30px;" href="{% url 'post_detail' post.pk %}" class="biooo">{{ post.body }}</a>
                         </div>
-                        {% if post.image %}
-                        <a href="{% url 'post_detail' post.pk %}"><img style="margin-top: 10px;" id="img-post" src="{{ post.image.url }}" alt=""></a>
+                        {% if post.image.count == 1 %}
+                        {% for i in post.image.all %}
+                        <a href="{% url 'post_detail' post.pk %}"><img style="margin-top: 10px;" id="img-post" src="{{ i.image.url }}" alt=""></a>
+                        {% endfor %}
+                        {% elif post.image.count >= 2 %}
+                        {% for i in post.image.all %}
+                        <a href="{% url 'post_detail' post.pk %}"><img style="margin-top: 10px;" id="img-post2" src="{{ i.image.url }}" alt=""></a>
+                        {% endfor %}
                         {% endif %}
                     <div class="likes">
                         <form method="POST" action="{% url 'add_like' post.pk %}">
@@ -124,6 +160,19 @@
 <!-- As a link -->
 </div>
 <style>
+
+    #img-post{
+        width: 450px;
+        height: 250px;
+    }
+
+    #img-post2{
+        width: 240px;
+        height: 140px;
+        margin: 0px;
+        border-radius: 10px;
+    }
+
     .searchBox {
     position: fixed;
     top: 2%;
@@ -172,7 +221,21 @@
 
     display: none;
 }
+
 }
+
+@media (max-width: 450px){
+    #img-post{
+        width: 300px;
+        height: 150px;
+    }
+
+    #img-post2{
+        width: 150px;
+        height: 120px;
+    }
+}
+
 </style>
 
 {% endblock content %}

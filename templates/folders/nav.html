@@ -1,8 +1,9 @@
 {% load static %}
+{% load crispy_forms_tags %}
 <nav id="footer" style="background-color: black;">
     <a class="navbar-brand" href="/"><img style="width: 30px;" class="hpagei" src="{% static 'img/new-home.png' %}" alt=""></a>
     <a class="navbar-brand" href="{% url 'profile_search' %}"><img style="width: 30px;" class="hpagei" src="{% static 'img/search-3-32.png' %}" alt=""></a>
-    <a class="navbar-brand" href="#"><img style="width: 30px;" class="hpagei" src="{% static 'img/notification.png' %}" alt=""></a>
+    <a class="navbar-brand" href="{% url 'notifications' request.user.pk %}"><img style="width: 30px;" class="hpagei" src="{% static 'img/notification.png' %}" alt=""></a>
     <a class="navbar-brand" href="{% url 'profile' request.user.pk %}"><img style="width: 30px;" class="hpagei" src="{% static 'img/user-32.png' %}" alt=""></a>
 <br>
 <br><br>
@@ -19,8 +20,9 @@
 </style>
 
 <div class="tremzin">
-<img class="peninha" src="{% static 'img/feather-32.png' %}" alt="">
-</div>
+      <button style="margin-left: 0px; border-radius: 60px; width: 60px; height: 60px; background-color: transparent; border: 0px;" type="button"  data-toggle="modal" data-target="#exampleModal"><img class="peninha" style="margin-left: 0px; margin-top: 5px;" src="{% static 'img/feather-32.png' %}" alt="">
+      </button>
+    </div>
 <div class="col" id="side-bar">
     <div class="icon">
         <img id="image" src="{% static 'img/twitter-brands.svg' %}" alt="">
@@ -32,7 +34,6 @@
         </a>
     </div>
 </a></div>
-
     <div class="notification">
         <div class="not">
 
@@ -71,7 +72,7 @@
     </div>
     </div>
 
-    <a href="{% url 'profile' request.user.pk %}"><button id="butn" style="margin-right: 0px;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+    <a href="{% url 'profile' request.user.pk %}"><button id="butn" style="margin-right: 0px;" type="button" class="btn btn-primary">
         Editar perfil
       </button></a>
       <div class="new" id="lolo">

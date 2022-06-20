@@ -5,7 +5,7 @@ from .models import Post, Comment, Profile
 class PostForm(forms.ModelForm):
     body = forms.CharField(label='', widget=forms.TextInput(attrs={'rows': '1', 'placeholder': 'Diga o que esta pensando...', 'background': 'black',}))
 
-    image = forms.ImageField(required=False, widget=forms.FileInput())
+    image = forms.ImageField(required=False, widget=forms.ClearableFileInput(attrs={'multiple': True}))
 
     class Meta:
         model = Post

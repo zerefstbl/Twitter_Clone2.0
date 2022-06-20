@@ -14,7 +14,30 @@
     }
     .esqueleto{
         margin-top: 80px;
-        height: 130px;
+        height: 100px;
+        
+    }
+
+    .sysy{
+        position: absolute;
+        width: 450px;
+        display: flex;
+        height: 40px;
+        margin-left: 100px;
+        margin-top: 30px;
+    }
+    .publi{
+        margin-left: 350px
+    }
+    
+    .curtiw{
+        width: 230px;
+        margin-top: 15px;
+        height: 20px;
+        
+    }
+    .o{
+        position: absolute;
     }
 
 </style>
@@ -24,12 +47,24 @@
     
     <div class="cima">
         <img style="width: 70px; height: 70px; margin-left: 10px; border-radius: 70px; margin-top: 10px;" src="{{ notification.to_user.profile.picture.url }}" alt="">
-        <a style="margin-left: 92px; position: absolute; margin-top: 14px;" href="">{{ notification.to_user }}</a>
-        <a href="/" style="text-decoration: none; color: white; margin-left: 10px;" class="name"></a>
         {% if notification.notification_type == 1 %}
-        <a style="text-decoration: none; color: white; margin-left: 96px; margin-top: 60px; position: absolute;" href="/" class="biooo">Seguiu você</a>
-        {% else %}
-        <a style="text-decoration: none; color: white; margin-left: 96px; margin-top: 60px; position: absolute;" href="/" class="biooo">não você</a>
+        <div class="sysy">
+        <a style="margin-left: 0px; margin-top: 14px;" href="{% url 'profile' notification.to_user.pk %}">{{ notification.to_user }}</a>
+        <a href="/" style="text-decoration: none; color: white; margin-left: 10px;" class="name"></a>
+        <a style="text-decoration: none; color: white; margin-left: 0px;" href="/" class="biooo">Seguiu você</a>
+    </div>
+        {% elif notification.notification_type == 2 %}
+        <div class="sysy">
+            <a style="margin-left: 0px; margin-top: 14px;" href="{% url 'profile' notification.to_user.pk %}">{{ notification.to_user }}</a>
+        <a style="text-decoration: none; color: white; margin-left: 0px; margin-left: 20px;" href="/" class="curtiw">Curtiu sua publicação</a>
+        {% if notification.post.image.count >= 1 %}
+        {% for i in notification.post.image.all %}
+        {% if forloop.counter < 2 %}
+        <a class="o" href="{% url 'post_detail' notification.post.pk %}"><img class="publi" style="width: 70px; height: 70px; border-radius: 70px; margin-top: -10px; position: absolute;" src="{{ i.image.url }}" alt=""></a>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+    </div>
         {% endif %}
     </div>
 
@@ -37,8 +72,7 @@
  
          
 </div>
-{% empty %}
-<h1>TGEURGUERHG</h1>
+
 {% endfor %}
     </div>
 </div>

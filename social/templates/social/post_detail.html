@@ -12,6 +12,20 @@
     .tremzin{
         display: none;
     }
+
+
+    #img-post{
+        width: 450px;
+        height: 250px;
+    }
+
+    #img-post2{
+        width: 240px;
+        height: 140px;
+        margin: 0px;
+        border-radius: 10px;
+    }
+
     .navbar{
         background: black;
         margin-left: 211px;
@@ -114,6 +128,17 @@
         }
     
     }
+    @media (max-width: 450px){
+        #img-post{
+            width: 300px;
+            height: 150px;
+    }
+
+    #img-post2{
+        width: 150px;
+        height: 120px;
+    }
+    }
 </style>
 <div class="navbar">
     <nav>
@@ -131,8 +156,14 @@
         <a style="text-decoration: none; color: white; margin-left: -120px; margin-top: 70px;" href="/" class="biooo"><h5 style=";">{{ post.body }}</h5></a>
         {% endif %}
     </div>
-    {% if post.image %}
-    <a href="/"><img style="margin-top: 10px;" id="img-post" src="{{ post.image.url }}" alt=""></a>
+    {% if post.image.count == 1 %}
+    {% for i in post.image.all %}
+    <a href="{% url 'post_detail' post.pk %}"><img style="margin-top: 10px;" id="img-post" src="{{ i.image.url }}" alt=""></a>
+    {% endfor %}
+    {% elif post.image.count >= 2 %}
+    {% for i in post.image.all %}
+    <a href="{% url 'post_detail' post.pk %}"><img style="margin-top: 10px;" id="img-post2" src="{{ i.image.url }}" alt=""></a>
+    {% endfor %}
     {% endif %}
 <div style="border-top: 1px solid #111; border-bottom: 1px solid #111; margin-left: -57px; position: absolute; height: 55px;" class="likes">
     <p style="margin-top: 12px; margin-left: 0px; font-weight: bold; font-size: 18px; color: white; position: absolute;">{{ post.likes.count }}</p>

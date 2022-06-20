@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 
 from django.views.generic import TemplateView
 
-from .models import Post, Comment, Profile
+from .models import Post, Comment, Profile, Image 
 
 from django.contrib.auth.models import User
 
@@ -64,6 +64,15 @@ class PostListView(LoginRequiredMixin, View):
             new_post = form.save(commit=False)
             new_post.author = request.user
             new_post.save()
+
+        files = request.FILES.getlist('image')
+
+        for file in files:
+            img = Image(image=file, user=request.user)
+            img.save()
+            new_post.image.add(img)
+        
+        new_post.save()
 
 
         home = Profile.objects.get(user=request.user)
@@ -143,9 +152,11 @@ class ProfileView(View):
 
         followers = profile.followers.all()
 
+        following = profile.following.all()
 
         count_followers = len(followers) - 1
 
+        count_following = len(following)
 
         for follower in followers:
             if follower == user:
@@ -161,7 +172,9 @@ class ProfileView(View):
             'posts': posts,
             'is_following': is_following,
             'count_followers': count_followers,
+            'count_following': count_following,
             'followers': followers,
+            'following': following,
         }
 
 
@@ -226,6 +239,7 @@ class AddLikeView(View):
 
         is_like = False
 
+
         likes = post.likes.all() 
 
         for like in likes:
@@ -237,10 +251,12 @@ class AddLikeView(View):
 
         if is_like == True:
             post.likes.remove(request.user)
+            notification = Notifications.objects.filter(to_user=request.user, post=post)
+            notification.delete()
 
         if is_like == False:
             post.likes.add(request.user)
-
+            notification = Notifications.objects.create(to_user=request.user, from_user=post.author, notification_type=2, post=post)
         
 
         return redirect('index')

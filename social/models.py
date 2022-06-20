@@ -7,10 +7,14 @@ from django.utils import timezone
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+
+def user_directory_path(instance, filename):
+    return 'user_{0}/{1}'.format(instance.user, filename)
+
 class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     body = models.TextField()
-    image = models.ImageField(upload_to='media/post_picture', blank=True, null=True)
+    image = models.ManyToManyField('Image', blank=True, null=True)
     likes = models.ManyToManyField(User, related_name='likes', blank=True)
     created_on = models.DateTimeField(default=timezone.now)
 
@@ -20,6 +24,10 @@ class Comment(models.Model):
     created_on = models.DateTimeField(default=timezone.now)
     post = models.ForeignKey('Post', on_delete=models.CASCADE)
 
+
+class Image(models.Model):
+    image = models.ImageField(upload_to=user_directory_path, blank=True, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
 class Profile(models.Model):
